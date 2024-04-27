@@ -17,8 +17,20 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { useRef, useState } from 'react';
 
 export function AddDataDialog() {
+  const [typeOfData, setTypeOfData] = useState('income');
+  const nameRef = useRef<HTMLInputElement>(null);
+  const quantityRef = useRef<HTMLInputElement>(null);
+
+  const saveData = () => {
+    const name = nameRef.current?.value;
+    const quantity = quantityRef.current?.value;
+
+    console.table({ typeOfData, name, quantity });
+  };
+
   return (
     <Dialog>
       <DialogTrigger className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2">
@@ -34,7 +46,7 @@ export function AddDataDialog() {
             <Label htmlFor="type-of-data" className="text-right">
               Type of data
             </Label>
-            <Select>
+            <Select onValueChange={setTypeOfData}>
               <SelectTrigger id="type-of-data" className="col-span-3">
                 <SelectValue placeholder="Select type of data" />
               </SelectTrigger>
@@ -53,6 +65,9 @@ export function AddDataDialog() {
               id="name"
               placeholder="Name of the your expense/income"
               className="col-span-3"
+              autoComplete="off"
+              ref={nameRef}
+              required
             />
           </div>
 
@@ -67,11 +82,13 @@ export function AddDataDialog() {
               placeholder="0.00"
               className="col-span-3"
               min="1"
+              ref={quantityRef}
+              required
             />
           </div>
         </div>
         <DialogFooter>
-          <Button>Save changes</Button>
+          <Button onClick={saveData}>Save changes</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
