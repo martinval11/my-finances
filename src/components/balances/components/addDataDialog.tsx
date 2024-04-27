@@ -29,6 +29,14 @@ export function AddDataDialog() {
     const quantity = quantityRef.current?.value;
 
     console.table({ typeOfData, name, quantity });
+
+    localStorage.setItem(
+      'data',
+      JSON.stringify([
+        ...localStorage.getItem('data') ? JSON.parse(localStorage.getItem('data')!) : [],
+        { typeOfData, name, quantity },
+      ])
+    );
   };
 
   return (
@@ -72,12 +80,12 @@ export function AddDataDialog() {
           </div>
 
           <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">
+            <Label htmlFor="quantity" className="text-right">
               Quantity
             </Label>
             <Input
               type="number"
-              id="name"
+              id="quantity"
               defaultValue="0"
               placeholder="0.00"
               className="col-span-3"
