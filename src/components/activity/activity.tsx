@@ -30,7 +30,7 @@ export function Activity() {
 
       <div className="flex flex-col gap-4">
         {activityArray.map((item: Activity) => (
-          <Card key={item.name}>
+          <Card key={item.id}>
             <CardHeader
               className={clsx(
                 'flex flex-row items-center justify-between p-4 px-6 space-y-0',

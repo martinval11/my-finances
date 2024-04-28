@@ -22,6 +22,7 @@ import {
 import { useRef, useState } from 'react';
 
 export function AddDataDialog() {
+  const [opened, setOpened] = useState(false);
   const [type, setType] = useState('income');
   const nameRef = useRef<HTMLInputElement>(null);
   const quantityRef = useRef<HTMLInputElement>(null);
@@ -36,22 +37,25 @@ export function AddDataDialog() {
       return window.alert('Please fill in all fields');
     }
 
+    const id = activityArray.length + 1;
+
     localStorage.setItem(
       'data',
       JSON.stringify([
         ...(localStorage.getItem('data')
           ? JSON.parse(localStorage.getItem('data')!)
           : []),
-        { type, name, quantity },
+        { id, type, name, quantity },
       ])
     );
 
-    activityArray.push({ type, name, quantity });
+    activityArray.push({ id, type, name, quantity });
     addActivity();
+    setOpened(false);
   };
 
   return (
-    <Dialog>
+    <Dialog open={opened} onOpenChange={setOpened}>
       <DialogTrigger className="inline-flex items-center justify-center h-10 px-4 py-2 text-sm font-medium border whitespace-nowrap rounded-md ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border-input bg-background hover:bg-accent hover:text-accent-foreground">
         Add data
       </DialogTrigger>
