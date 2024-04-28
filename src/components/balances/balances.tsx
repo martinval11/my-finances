@@ -35,19 +35,19 @@ export function Balances() {
         <div>
           <strong>Income</strong>
           <div id="income-counter" className="text-xl">
-            {income.toLocaleString()}
+            ${income.toLocaleString()}
           </div>
         </div>
         <div>
           <strong>Expenses</strong>
           <div id="expenses-counter" className="text-xl">
-            {expenses.toLocaleString()}
+            ${expenses.toLocaleString()}
           </div>
         </div>
         <div>
           <strong>Current Balance</strong>
           <div id="current-balance-counter" className="text-xl">
-            {currentBalance.toLocaleString()}
+            ${currentBalance.toLocaleString()}
           </div>
         </div>
       </article>
