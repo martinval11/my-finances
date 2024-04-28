@@ -1,10 +1,5 @@
 import { create } from 'zustand';
-
-type Activity = {
-  type: string;
-  name: string;
-  quantity: string;
-};
+import type { Activity } from '@/types/types';
 
 type Store = {
   activityArray: Array<Activity>;
