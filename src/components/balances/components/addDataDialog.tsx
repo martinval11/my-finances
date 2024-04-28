@@ -1,3 +1,5 @@
+import { useStore } from '@/lib/zStates';
+
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -20,28 +22,37 @@ import {
 import { useRef, useState } from 'react';
 
 export function AddDataDialog() {
-  const [typeOfData, setTypeOfData] = useState('income');
+  const [type, setType] = useState('income');
   const nameRef = useRef<HTMLInputElement>(null);
   const quantityRef = useRef<HTMLInputElement>(null);
+
+  const { activityArray, addActivity } = useStore();
 
   const saveData = () => {
     const name = nameRef.current?.value;
     const quantity = quantityRef.current?.value;
 
-    console.table({ typeOfData, name, quantity });
+    if (!name || !quantity) {
+      return window.alert('Please fill in all fields');
+    }
 
     localStorage.setItem(
       'data',
       JSON.stringify([
-        ...localStorage.getItem('data') ? JSON.parse(localStorage.getItem('data')!) : [],
-        { typeOfData, name, quantity },
+        ...(localStorage.getItem('data')
+          ? JSON.parse(localStorage.getItem('data')!)
+          : []),
+        { type, name, quantity },
       ])
     );
+
+    activityArray.push({ type, name, quantity });
+    addActivity();
   };
 
   return (
     <Dialog>
-      <DialogTrigger className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2">
+      <DialogTrigger className="inline-flex items-center justify-center h-10 px-4 py-2 text-sm font-medium border whitespace-nowrap rounded-md ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border-input bg-background hover:bg-accent hover:text-accent-foreground">
         Add data
       </DialogTrigger>
 
@@ -49,12 +60,12 @@ export function AddDataDialog() {
         <DialogHeader>
           <DialogTitle>Add data</DialogTitle>
         </DialogHeader>
-        <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
+        <div className="py-4 grid gap-4">
+          <div className="items-center grid grid-cols-4 gap-4">
             <Label htmlFor="type-of-data" className="text-right">
               Type of data
             </Label>
-            <Select onValueChange={setTypeOfData}>
+            <Select onValueChange={setType}>
               <SelectTrigger id="type-of-data" className="col-span-3">
                 <SelectValue placeholder="Select type of data" />
               </SelectTrigger>
@@ -64,7 +75,7 @@ export function AddDataDialog() {
               </SelectContent>
             </Select>
           </div>
-          <div className="grid grid-cols-4 items-center gap-4">
+          <div className="items-center grid grid-cols-4 gap-4">
             <Label htmlFor="name" className="text-right">
               Name
             </Label>
@@ -79,7 +90,7 @@ export function AddDataDialog() {
             />
           </div>
 
-          <div className="grid grid-cols-4 items-center gap-4">
+          <div className="items-center grid grid-cols-4 gap-4">
             <Label htmlFor="quantity" className="text-right">
               Quantity
             </Label>

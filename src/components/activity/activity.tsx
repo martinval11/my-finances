@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useStore } from '@/lib/zStates';
 
 import {
   Card,
@@ -13,24 +14,25 @@ type Data = {
 };
 
 export function Activity() {
-  const [data, setData] = useState([]);
+  const { activityArray, addActivity } = useStore();
 
   useEffect(() => {
     const localData = localStorage.getItem('data');
 
     if (localData) {
-      setData(JSON.parse(localData));
+      activityArray.push(...JSON.parse(localData));
+      addActivity();
     }
   }, []);
 
   return (
     <section className="mt-6">
-      <h2 className="text-lg font-bold mb-3">Activity</h2>
+      <h2 className="mb-3 text-lg font-bold">Activity</h2>
 
       <div className="flex flex-col gap-4">
-        {data.map((item: Data) => (
+        {activityArray.map((item: Data) => (
           <Card key={item.name}>
-            <CardHeader className="flex justify-between flex-row items-center p-4 px-6 space-y-0">
+            <CardHeader className="flex flex-row items-center justify-between p-4 px-6 space-y-0">
               <CardTitle>{item.name}</CardTitle>
               <CardDescription className="text-lg">
                 {item.quantity}
