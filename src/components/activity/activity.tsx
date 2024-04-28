@@ -1,4 +1,6 @@
 import { useEffect } from 'react';
+import clsx from 'clsx';
+
 import { useStore } from '@/lib/zStates';
 
 import {
@@ -8,10 +10,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 
-type Data = {
-  name: string;
-  quantity: string;
-};
+import type { Activity } from '@/types/types';
 
 export function Activity() {
   const { activityArray, addActivity } = useStore();
@@ -30,12 +29,24 @@ export function Activity() {
       <h2 className="mb-3 text-lg font-bold">Activity</h2>
 
       <div className="flex flex-col gap-4">
-        {activityArray.map((item: Data) => (
+        {activityArray.map((item: Activity) => (
           <Card key={item.name}>
-            <CardHeader className="flex flex-row items-center justify-between p-4 px-6 space-y-0">
+            <CardHeader
+              className={clsx(
+                'flex flex-row items-center justify-between p-4 px-6 space-y-0',
+                item.type === 'income' ? 'text-green-500' : 'text-red-500'
+              )}
+            >
               <CardTitle>{item.name}</CardTitle>
-              <CardDescription className="text-lg">
-                {item.quantity}
+              <CardDescription
+                className={clsx(
+                  'text-lg font-bold px-2 rounded',
+                  item.type === 'income'
+                    ? 'bg-green-500 text-white'
+                    : 'bg-red-500 text-white'
+                )}
+              >
+                {item.type === 'income' ? '+' : '-'} ${item.quantity}
               </CardDescription>
             </CardHeader>
           </Card>
