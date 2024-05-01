@@ -1,10 +1,13 @@
 import { create } from 'zustand';
-import type { Activity } from '@/types/types';
+import type { Activity, Budget } from '@/types/types';
 
 type Store = {
-  activityArray: Array<Activity>;
-  setActivities: (activities: Array<Activity>) => void;
+  activityArray: Activity[];
+  setActivities: (activities: Activity[]) => void;
   removeActivity: (id: number) => void;
+  budgetArray: Budget[];
+  setBudgetArray: (budgets: Budget[]) => void;
+  removeBudget: (id: number) => void;
 };
 
 export const useStore = create<Store>()((set, get) => ({
@@ -15,5 +18,13 @@ export const useStore = create<Store>()((set, get) => ({
       activityArray: state.activityArray.filter((item) => item.id !== id),
     }));
     localStorage.setItem('data', JSON.stringify(get().activityArray));
+  },
+  budgetArray: [],
+  setBudgetArray: (budgets) => set({ budgetArray: budgets }),
+  removeBudget: (id) => {
+    set((state) => ({
+      budgetArray: state.budgetArray.filter((item) => item.id !== id),
+    }));
+    localStorage.setItem('dataBudgets', JSON.stringify(get().budgetArray));
   },
 }));

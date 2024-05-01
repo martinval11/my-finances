@@ -1,8 +1,13 @@
+import { AddBudgetDialog } from './components/addBudgetDialog';
+import { BudgetCards } from './components/budgetCards';
+
 const BudgetsPage = () => {
   return (
-    <div>
+    <main className="max-w-xl p-4 mx-auto">
       <h1>Budgets</h1>
-    </div>
+      <AddBudgetDialog />
+      <BudgetCards />
+    </main>
   );
 };
 

@@ -4,3 +4,9 @@ export type Activity = {
   type: string;
   quantity: string;
 };
+
+export type Budget = {
+  id: number;
+  name: string;
+  quantityGoal: string;
+}
