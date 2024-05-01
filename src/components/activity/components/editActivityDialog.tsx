@@ -28,12 +28,12 @@ type EditActivityDialogProps = {
   typePredefined: string;
 }
 
-export function EditActivityDialog({
+export const EditActivityDialog = ({
   id,
   name,
   quantity,
   typePredefined,
-}: EditActivityDialogProps) {
+}: EditActivityDialogProps) => {
   const [opened, setOpened] = useState(false);
   const [type, setType] = useState(typePredefined);
   const nameRef = useRef<HTMLInputElement>(null);

@@ -1,4 +1,4 @@
-import { Activity } from './components/activity/activity';
+import { ActivitySection as Activity } from './components/activity/activity';
 import { Balances } from './components/balances/balances';
 
 export default function App() {

@@ -15,7 +15,7 @@ import { EditActivityDialog } from './components/editActivityDialog';
 
 import type { Activity } from '@/types/types';
 
-export function Activity() {
+export const ActivitySection = () => {
   const { activityArray, removeActivity, setActivities } = useStore();
 
   const handleRemoveActivity = (id: number) => {

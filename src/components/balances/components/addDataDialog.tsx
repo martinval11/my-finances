@@ -21,7 +21,7 @@ import {
 } from '@/components/ui/select';
 import { useRef, useState } from 'react';
 
-export function AddDataDialog() {
+export const AddDataDialog = () => {
   const [opened, setOpened] = useState(false);
   const [type, setType] = useState('income');
   const nameRef = useRef<HTMLInputElement>(null);

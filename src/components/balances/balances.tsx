@@ -24,7 +24,7 @@ const useFinancialTotals = (activities: Array<Activity>) => {
   }, [activities]);
 }
 
-export function Balances() {
+export const Balances = () => {
   const { activityArray } = useStore();
   const { income, expenses, currentBalance } =
     useFinancialTotals(activityArray);
