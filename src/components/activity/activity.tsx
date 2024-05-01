@@ -11,9 +11,9 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { EditActivityDialog } from './components/editActivityDialog';
 
 import type { Activity } from '@/types/types';
-import {EditActivityDialog} from './components/editActivityDialog';
 
 export function Activity() {
   const { activityArray, removeActivity, setActivities } = useStore();
@@ -21,10 +21,6 @@ export function Activity() {
   const handleRemoveActivity = (id: number) => {
     removeActivity(id);
   };
-
-  const handleEditActivity = (id: number) => {
-    
-  }
 
   useEffect(() => {
     const data = localStorage.getItem('data') || '[]';
@@ -61,7 +57,12 @@ export function Activity() {
               </CardDescription>
             </CardHeader>
             <CardFooter className="flex gap-2">
-              <EditActivityDialog name={item.name} quantity={item.quantity} typePredefined={item.type} />
+              <EditActivityDialog
+                id={item.id}
+                name={item.name}
+                quantity={item.quantity}
+                typePredefined={item.type}
+              />
               <Button
                 onClick={() => handleRemoveActivity(item.id)}
                 variant="secondary"

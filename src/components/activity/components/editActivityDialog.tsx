@@ -22,12 +22,14 @@ import {
 } from '@/components/ui/select';
 
 interface EditActivityDialogProps {
+  id: number;
   name: string;
   quantity: string;
   typePredefined: string;
 }
 
 export function EditActivityDialog({
+  id,
   name,
   quantity,
   typePredefined,
@@ -39,7 +41,7 @@ export function EditActivityDialog({
 
   const { activityArray, setActivities } = useStore();
 
-  const saveData = () => {
+  const saveEditedData = () => {
     const name = nameRef.current?.value;
     const quantity = quantityRef.current?.value;
 
@@ -47,19 +49,17 @@ export function EditActivityDialog({
       return window.alert('Please fill in all fields');
     }
 
-    const id = activityArray.length + 1;
+    activityArray.find((item) => {
+      if (item.id === id) {
+        item.name = name;
+        item.quantity = quantity;
+        item.type = type;
+      }
+    });
 
-    localStorage.setItem(
-      'data',
-      JSON.stringify([
-        ...(localStorage.getItem('data')
-          ? JSON.parse(localStorage.getItem('data')!)
-          : []),
-        { id, type, name, quantity },
-      ])
-    );
+    localStorage.setItem('data', JSON.stringify([...activityArray]));
 
-    setActivities([...activityArray, { id, type, name, quantity }]);
+    setActivities([...activityArray]);
     setOpened(false);
   };
 
@@ -115,7 +115,7 @@ export function EditActivityDialog({
           </div>
         </div>
         <DialogFooter>
-          <Button onClick={saveData}>Save changes</Button>
+          <Button onClick={saveEditedData}>Save changes</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
