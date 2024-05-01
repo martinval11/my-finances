@@ -21,7 +21,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 
-interface EditActivityDialogProps {
+type EditActivityDialogProps = {
   id: number;
   name: string;
   quantity: string;
