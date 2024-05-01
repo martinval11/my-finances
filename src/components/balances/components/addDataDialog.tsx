@@ -54,18 +54,18 @@ export function AddDataDialog() {
   };
 
   return (
-    <Dialog open={opened} onOpenChange={setOpened}>
+    <Dialog open={opened} onOpenChange={setOpened} >
       <DialogTrigger className="inline-flex items-center justify-center h-10 px-4 py-2 text-sm font-medium border whitespace-nowrap rounded-md ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border-input bg-background hover:bg-accent hover:text-accent-foreground">
         Add data
       </DialogTrigger>
 
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px] rounded-md">
         <DialogHeader>
           <DialogTitle>Add data</DialogTitle>
         </DialogHeader>
         <div className="py-4 grid gap-4">
-          <div className="items-center grid grid-cols-4 gap-4">
-            <Label htmlFor="type-of-data" className="text-right">
+          <div className='flex flex-col gap-2'>
+            <Label htmlFor="type-of-data">
               Type of data
             </Label>
             <Select onValueChange={setType}>
@@ -78,8 +78,8 @@ export function AddDataDialog() {
               </SelectContent>
             </Select>
           </div>
-          <div className="items-center grid grid-cols-4 gap-4">
-            <Label htmlFor="name" className="text-right">
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="name">
               Name
             </Label>
             <Input
@@ -93,8 +93,8 @@ export function AddDataDialog() {
             />
           </div>
 
-          <div className="items-center grid grid-cols-4 gap-4">
-            <Label htmlFor="quantity" className="text-right">
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="quantity">
               Quantity
             </Label>
             <Input
