@@ -19,11 +19,11 @@ export function Activity() {
 
   const handleRemoveActivity = (id: number) => {
     removeActivity(id);
-    localStorage.setItem('data', JSON.stringify(activityArray));
   };
 
   useEffect(() => {
     const data = localStorage.getItem('data');
+
     if (data) {
       const activities = JSON.parse(data);
       if (activities) {

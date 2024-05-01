@@ -7,11 +7,14 @@ type Store = {
   removeActivity: (id: number) => void;
 };
 
-export const useStore = create<Store>()((set) => ({
+export const useStore = create<Store>()((set, get) => ({
   activityArray: [],
   setActivities: (activities) => set({ activityArray: activities }),
-  removeActivity: (id) =>
+  removeActivity: (id) => {
     set((state) => ({
       activityArray: state.activityArray.filter((item) => item.id !== id),
-    })),
+    }));
+    console.log(get().activityArray);
+    localStorage.setItem('data', JSON.stringify(get().activityArray));
+  },
 }));
