@@ -27,7 +27,7 @@ export function AddDataDialog() {
   const nameRef = useRef<HTMLInputElement>(null);
   const quantityRef = useRef<HTMLInputElement>(null);
 
-  const { activityArray, addActivity } = useStore();
+  const { activityArray, setActivities } = useStore();
 
   const saveData = () => {
     const name = nameRef.current?.value;
@@ -49,8 +49,7 @@ export function AddDataDialog() {
       ])
     );
 
-    activityArray.push({ id, type, name, quantity });
-    addActivity();
+    setActivities([...activityArray, { id, type, name, quantity }]);
     setOpened(false);
   };
 

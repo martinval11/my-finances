@@ -1,6 +1,6 @@
 export type Activity = {
   id: number;
-  type: string;
   name: string;
+  type: 'income' | 'expense';
   quantity: string;
 };
