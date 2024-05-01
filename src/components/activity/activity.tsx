@@ -13,6 +13,7 @@ import {
 import { Button } from '@/components/ui/button';
 
 import type { Activity } from '@/types/types';
+import {EditActivityDialog} from './components/editActivityDialog';
 
 export function Activity() {
   const { activityArray, removeActivity, setActivities } = useStore();
@@ -21,14 +22,16 @@ export function Activity() {
     removeActivity(id);
   };
 
-  useEffect(() => {
-    const data = localStorage.getItem('data');
+  const handleEditActivity = (id: number) => {
+    
+  }
 
-    if (data) {
-      const activities = JSON.parse(data);
-      if (activities) {
-        setActivities(activities);
-      }
+  useEffect(() => {
+    const data = localStorage.getItem('data') || '[]';
+    const activities = JSON.parse(data);
+
+    if (data && activities) {
+      setActivities(activities);
     }
   }, []);
 
@@ -58,7 +61,7 @@ export function Activity() {
               </CardDescription>
             </CardHeader>
             <CardFooter className="flex gap-2">
-              <Button variant="outline">Edit</Button>
+              <EditActivityDialog name={item.name} quantity={item.quantity} typePredefined={item.type} />
               <Button
                 onClick={() => handleRemoveActivity(item.id)}
                 variant="secondary"
