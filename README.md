@@ -1,5 +1,6 @@
 # My Finances
 Manage your finances easily!
+
 ![screenshot](screenshot.png)
 
 ## Setup
